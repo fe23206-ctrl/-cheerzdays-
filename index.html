@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>cheerzdays-初めまして、また会おうね-</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#ffe8d6,#ffd1a1);
+  background:linear-gradient(135deg,#ffb347,#ff8c42);
   display:flex;
   justify-content:center;
   align-items:center;
@@ -20,52 +19,74 @@ body{
 }
 
 .container{
-  background:rgba(255,255,255,0.85);
-  backdrop-filter:blur(14px);
+  position:relative;
+  background:#fff;
   padding:35px 25px;
-  border-radius:28px;
-  box-shadow:0 20px 40px rgba(0,0,0,0.08);
+  border-radius:30px;
   width:90%;
   max-width:500px;
   text-align:center;
+  box-shadow:0 20px 50px rgba(0,0,0,0.15);
 }
 
+/* タイトル（ステッカー風） */
 .title{
-  font-family:'Playfair Display',serif;
-  font-size:32px;
-  font-weight:700;
-  background:linear-gradient(90deg,#ffb46b,#ff8a3d);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  margin-bottom:6px;
-  letter-spacing:1px;
+  font-family:'Baloo 2',cursive;
+  font-size:36px;
+  color:#ff6a00;
+  text-shadow:3px 3px 0 #ffe0c2;
+  margin-bottom:5px;
 }
 
 .subtitle{
-  font-size:16px;
-  color:#7a5a45;
+  font-size:15px;
+  color:#444;
   margin-bottom:25px;
-  letter-spacing:1px;
 }
 
+/* ポップ点線 */
+.dashed-vertical{
+  position:absolute;
+  helping: none;
+  top:120px;
+  left:-18px;
+  width:60px;
+  height:120px;
+  border:3px dashed #ff8c42;
+  border-radius:30px;
+  transform:rotate(-8deg);
+}
+
+.dashed-top{
+  position:absolute;
+  top:50px;
+  right:-20px;
+  width:80px;
+  height:50px;
+  border:3px dashed #ffb347;
+  border-radius:20px;
+  transform:rotate(12deg);
+}
+
+/* アップロード */
 .upload-box{
-  border:2px dashed #ffb46b;
-  border-radius:18px;
-  padding:30px 15px;
+  border:3px dashed #ff8c42;
+  border-radius:20px;
+  padding:25px;
   cursor:pointer;
-  background:#fff8f2;
-  transition:0.3s;
+  background:#fff7ef;
   margin-bottom:20px;
+  transition:0.3s;
 }
 
 .upload-box:hover{
-  background:#ffeede;
-  transform:translateY(-3px);
+  background:#ffe8d6;
+  transform:scale(1.03);
 }
 
 .upload-text{
-  color:#b87333;
   font-weight:600;
+  color:#ff6a00;
 }
 
 input[type="file"]{
@@ -76,8 +97,8 @@ input[type="text"]{
   width:100%;
   padding:14px;
   margin-bottom:15px;
-  border-radius:15px;
-  border:1px solid #eee;
+  border-radius:20px;
+  border:2px solid #ffd1a1;
   font-size:14px;
 }
 
@@ -85,19 +106,19 @@ button{
   width:100%;
   padding:14px;
   font-size:16px;
-  font-weight:600;
+  font-weight:700;
   border:none;
   border-radius:40px;
-  background:linear-gradient(90deg,#ffb347,#ffcc70);
-  color:#5a3e2b;
+  background:#ff6a00;
+  color:white;
   cursor:pointer;
   transition:0.3s;
-  box-shadow:0 10px 20px rgba(255,179,71,0.3);
+  box-shadow:0 8px 0 #cc5500;
 }
 
-button:hover{
-  transform:translateY(-3px);
-  box-shadow:0 15px 30px rgba(255,179,71,0.4);
+button:active{
+  transform:translateY(4px);
+  box-shadow:0 4px 0 #cc5500;
 }
 
 canvas{
@@ -123,11 +144,14 @@ canvas{
 
 <div class="container">
 
+<div class="dashed-vertical"></div>
+<div class="dashed-top"></div>
+
 <div class="title">cheerzdays</div>
 <div class="subtitle">初めまして、また会おうね</div>
 
 <label class="upload-box">
-  <div class="upload-text">📷 タップして画像を選択</div>
+  <div class="upload-text">📸 タップして画像を選択</div>
   <input type="file" id="upload">
 </label>
 
@@ -160,10 +184,9 @@ function generate(){
 
       canvas.width = 1080;
       canvas.height = 1080;
-
       ctx.clearRect(0,0,canvas.width,canvas.height);
 
-      // ===== 比率維持（引き伸ばしなし） =====
+      // 比率維持（引き伸ばしなし）
       const canvasRatio = canvas.width / canvas.height;
       const imgRatio = img.width / img.height;
 
@@ -189,11 +212,11 @@ function generate(){
       frame.onload = function(){
         ctx.drawImage(frame,0,0,1080,1080);
 
-        ctx.font = "bold 70px Playfair Display";
-        ctx.fillStyle = "#ffffff";
-        ctx.textAlign = "center";
-        ctx.shadowColor = "rgba(0,0,0,0.4)";
-        ctx.shadowBlur = 20;
+        ctx.font="bold 70px Baloo 2";
+        ctx.fillStyle="#ffffff";
+        ctx.textAlign="center";
+        ctx.shadowColor="rgba(0,0,0,0.4)";
+        ctx.shadowBlur=20;
 
         ctx.fillText(
           document.getElementById("eventName").value,
@@ -201,12 +224,11 @@ function generate(){
           1000
         );
 
-        document.getElementById("download").href = canvas.toDataURL();
+        document.getElementById("download").href=canvas.toDataURL();
       }
     }
-    img.src = e.target.result;
+    img.src=e.target.result;
   }
-
   reader.readAsDataURL(file);
 }
 </script>
