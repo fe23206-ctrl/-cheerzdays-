@@ -6,88 +6,66 @@
 
 <title>cheerzdays-初めまして、また会おうね-</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-  box-sizing:border-box;
-}
-
 body{
   margin:0;
-  font-family:'Inter',sans-serif;
-  background:linear-gradient(135deg,#ffe5cc,#ffd6a8);
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffe8d6,#ffd1a1);
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
-  overflow-x:hidden;
-  position:relative;
 }
 
-/* 背景ぼかしレイヤー */
-body::before{
-  content:"";
-  position:absolute;
-  width:500px;
-  height:500px;
-  background:radial-gradient(circle,#ffb34755,transparent 70%);
-  top:-150px;
-  right:-150px;
-  filter:blur(80px);
-}
-
-.app{
-  width:95%;
-  max-width:520px;
-  padding:40px;
+.container{
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(14px);
+  padding:35px 25px;
   border-radius:28px;
-  background:rgba(255,255,255,0.6);
-  backdrop-filter:blur(20px);
-  box-shadow:0 30px 60px rgba(0,0,0,0.12);
+  box-shadow:0 20px 40px rgba(0,0,0,0.08);
+  width:90%;
+  max-width:500px;
   text-align:center;
-  position:relative;
-  z-index:2;
-  animation:fadeUp 1s ease;
 }
 
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(30px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-h1{
-  font-weight:800;
-  font-size:28px;
-  margin:0;
+.title{
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+  font-weight:700;
+  background:linear-gradient(90deg,#ffb46b,#ff8a3d);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:6px;
   letter-spacing:1px;
 }
 
 .subtitle{
-  font-size:13px;
-  margin-top:6px;
-  color:#555;
-  letter-spacing:2px;
+  font-size:16px;
+  color:#7a5a45;
+  margin-bottom:25px;
+  letter-spacing:1px;
 }
 
 .upload-box{
-  margin-top:30px;
-  padding:30px;
-  border:2px dashed #ffb26b;
-  border-radius:20px;
-  background:#fff8f1;
+  border:2px dashed #ffb46b;
+  border-radius:18px;
+  padding:30px 15px;
   cursor:pointer;
+  background:#fff8f2;
   transition:0.3s;
+  margin-bottom:20px;
 }
 
 .upload-box:hover{
-  background:#fff3e5;
+  background:#ffeede;
+  transform:translateY(-3px);
 }
 
-.upload-box p{
-  margin:0;
-  font-size:14px;
-  color:#666;
+.upload-text{
+  color:#b87333;
+  font-weight:600;
 }
 
 input[type="file"]{
@@ -96,58 +74,42 @@ input[type="file"]{
 
 input[type="text"]{
   width:100%;
-  margin-top:20px;
   padding:14px;
-  border:none;
-  border-radius:18px;
-  background:#fff8f1;
-  box-shadow:0 8px 20px rgba(0,0,0,0.05);
+  margin-bottom:15px;
+  border-radius:15px;
+  border:1px solid #eee;
   font-size:14px;
-  outline:none;
 }
 
 button{
   width:100%;
-  margin-top:25px;
-  padding:16px;
+  padding:14px;
+  font-size:16px;
+  font-weight:600;
   border:none;
   border-radius:40px;
-  font-weight:600;
-  font-size:15px;
-  background:linear-gradient(90deg,#ffb347,#ff8c42);
-  color:white;
+  background:linear-gradient(90deg,#ffb347,#ffcc70);
+  color:#5a3e2b;
   cursor:pointer;
   transition:0.3s;
-  box-shadow:0 15px 35px rgba(255,140,66,0.4);
+  box-shadow:0 10px 20px rgba(255,179,71,0.3);
 }
 
 button:hover{
   transform:translateY(-3px);
-  box-shadow:0 20px 40px rgba(255,140,66,0.6);
-}
-
-.preview{
-  margin-top:35px;
-  border-radius:30px;
-  overflow:hidden;
-  box-shadow:0 30px 70px rgba(0,0,0,0.15);
-  background:white;
-  transition:0.3s;
-}
-
-.preview:hover{
-  transform:scale(1.01);
+  box-shadow:0 15px 30px rgba(255,179,71,0.4);
 }
 
 canvas{
   width:100%;
-  display:block;
+  margin-top:25px;
+  border-radius:20px;
 }
 
 .download-btn{
-  display:block;
+  display:inline-block;
   margin-top:20px;
-  padding:14px;
+  padding:12px 25px;
   border-radius:30px;
   background:#333;
   color:white;
@@ -159,13 +121,13 @@ canvas{
 
 <body>
 
-<div class="app">
+<div class="container">
 
-<h1>cheerzdays</h1>
+<div class="title">cheerzdays</div>
 <div class="subtitle">初めまして、また会おうね</div>
 
 <label class="upload-box">
-  <p>📷 タップして画像を選択</p>
+  <div class="upload-text">📷 タップして画像を選択</div>
   <input type="file" id="upload">
 </label>
 
@@ -173,9 +135,7 @@ canvas{
 
 <button onclick="generate()">画像を生成する</button>
 
-<div class="preview">
-  <canvas id="canvas"></canvas>
-</div>
+<canvas id="canvas"></canvas>
 
 <a id="download" class="download-btn" download="event.png">ダウンロード</a>
 
@@ -185,56 +145,68 @@ canvas{
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-document.querySelector(".upload-box").addEventListener("click",()=>{
-  document.getElementById("upload").click();
-});
-
 function generate(){
-  const file=document.getElementById("upload").files[0];
+  const file = document.getElementById("upload").files[0];
   if(!file){
     alert("画像を選択してください");
     return;
   }
 
-  const reader=new FileReader();
-  reader.onload=function(e){
-    const img=new Image();
-    img.onload=function(){
+  const reader = new FileReader();
 
-      canvas.width=1080;
-      canvas.height=1080;
+  reader.onload = function(e){
+    const img = new Image();
+    img.onload = function(){
+
+      canvas.width = 1080;
+      canvas.height = 1080;
 
       ctx.clearRect(0,0,canvas.width,canvas.height);
 
-      // 🔥 比率完全維持（引き伸ばしなし）
-      const scale=Math.min(
-        canvas.width/img.width,
-        canvas.height/img.height
-      );
+      // ===== 比率維持（引き伸ばしなし） =====
+      const canvasRatio = canvas.width / canvas.height;
+      const imgRatio = img.width / img.height;
 
-      const newWidth=img.width*scale;
-      const newHeight=img.height*scale;
-      const offsetX=(canvas.width-newWidth)/2;
-      const offsetY=(canvas.height-newHeight)/2;
+      let drawWidth, drawHeight, offsetX, offsetY;
 
-      ctx.drawImage(img,offsetX,offsetY,newWidth,newHeight);
+      if(imgRatio > canvasRatio){
+        drawHeight = canvas.height;
+        drawWidth = img.width * (canvas.height / img.height);
+        offsetX = (canvas.width - drawWidth) / 2;
+        offsetY = 0;
+      }else{
+        drawWidth = canvas.width;
+        drawHeight = img.height * (canvas.width / img.width);
+        offsetX = 0;
+        offsetY = (canvas.height - drawHeight) / 2;
+      }
 
-      ctx.font="bold 70px Inter";
-      ctx.fillStyle="#ffffff";
-      ctx.textAlign="center";
-      ctx.shadowColor="rgba(0,0,0,0.5)";
-      ctx.shadowBlur=20;
+      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
 
-      ctx.fillText(
-        document.getElementById("eventName").value,
-        540,
-        1000
-      );
+      const frame = new Image();
+      frame.src = "frame.png";
 
-      document.getElementById("download").href=canvas.toDataURL();
+      frame.onload = function(){
+        ctx.drawImage(frame,0,0,1080,1080);
+
+        ctx.font = "bold 70px Playfair Display";
+        ctx.fillStyle = "#ffffff";
+        ctx.textAlign = "center";
+        ctx.shadowColor = "rgba(0,0,0,0.4)";
+        ctx.shadowBlur = 20;
+
+        ctx.fillText(
+          document.getElementById("eventName").value,
+          540,
+          1000
+        );
+
+        document.getElementById("download").href = canvas.toDataURL();
+      }
     }
-    img.src=e.target.result;
+    img.src = e.target.result;
   }
+
   reader.readAsDataURL(file);
 }
 </script>
