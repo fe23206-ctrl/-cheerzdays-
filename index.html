@@ -1,91 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>cheerzdays-初めまして、また会おうね-</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(180deg,#ffe8d6,#ffb88c);
-  height:100vh;
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#ffe5cc,#ffd6a8);
   display:flex;
-  align-items:center;
   justify-content:center;
-  overflow:hidden;
-}
-
-/* タイトル */
-.header{
-  position:absolute;
-  top:40px;
-  text-align:center;
-  color:white;
-  font-family:'Playfair Display',serif;
-  letter-spacing:3px;
-}
-
-.header h1{
-  margin:0;
-  font-size:24px;
-}
-
-.header p{
-  margin:5px 0 0;
-  font-size:13px;
-  opacity:0.85;
-}
-
-/* プレビューカード */
-.preview-wrapper{
-  width:90vw;
-  max-width:520px;
-  aspect-ratio:1/1;
-  border-radius:30px;
-  background:rgba(255,255,255,0.25);
-  backdrop-filter:blur(20px);
-  box-shadow:0 30px 70px rgba(0,0,0,0.15);
-  display:flex;
   align-items:center;
-  justify-content:center;
+  min-height:100vh;
+  overflow-x:hidden;
   position:relative;
-  overflow:hidden;
+}
+
+/* 背景ぼかしレイヤー */
+body::before{
+  content:"";
+  position:absolute;
+  width:500px;
+  height:500px;
+  background:radial-gradient(circle,#ffb34755,transparent 70%);
+  top:-150px;
+  right:-150px;
+  filter:blur(80px);
+}
+
+.app{
+  width:95%;
+  max-width:520px;
+  padding:40px;
+  border-radius:28px;
+  background:rgba(255,255,255,0.6);
+  backdrop-filter:blur(20px);
+  box-shadow:0 30px 60px rgba(0,0,0,0.12);
+  text-align:center;
+  position:relative;
+  z-index:2;
+  animation:fadeUp 1s ease;
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+h1{
+  font-weight:800;
+  font-size:28px;
+  margin:0;
+  letter-spacing:1px;
+}
+
+.subtitle{
+  font-size:13px;
+  margin-top:6px;
+  color:#555;
+  letter-spacing:2px;
+}
+
+.upload-box{
+  margin-top:30px;
+  padding:30px;
+  border:2px dashed #ffb26b;
+  border-radius:20px;
+  background:#fff8f1;
   cursor:pointer;
   transition:0.3s;
 }
 
-.preview-wrapper:hover{
-  transform:scale(1.02);
+.upload-box:hover{
+  background:#fff3e5;
 }
 
-/* プレースホルダー */
-.placeholder{
-  position:absolute;
-  color:white;
-  text-align:center;
-  font-size:15px;
-  opacity:0.9;
-}
-
-canvas{
-  width:100%;
-  height:100%;
-  display:none;
-}
-
-/* 下部UI */
-.controls{
-  position:absolute;
-  bottom:40px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:15px;
+.upload-box p{
+  margin:0;
+  font-size:14px;
+  color:#666;
 }
 
 input[type="file"]{
@@ -93,121 +95,148 @@ input[type="file"]{
 }
 
 input[type="text"]{
-  padding:12px 18px;
-  border-radius:30px;
+  width:100%;
+  margin-top:20px;
+  padding:14px;
   border:none;
-  width:220px;
-  text-align:center;
+  border-radius:18px;
+  background:#fff8f1;
+  box-shadow:0 8px 20px rgba(0,0,0,0.05);
   font-size:14px;
   outline:none;
 }
 
-.download-btn{
-  padding:10px 20px;
-  border-radius:25px;
+button{
+  width:100%;
+  margin-top:25px;
+  padding:16px;
+  border:none;
+  border-radius:40px;
+  font-weight:600;
+  font-size:15px;
+  background:linear-gradient(90deg,#ffb347,#ff8c42);
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 15px 35px rgba(255,140,66,0.4);
+}
+
+button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 20px 40px rgba(255,140,66,0.6);
+}
+
+.preview{
+  margin-top:35px;
+  border-radius:30px;
+  overflow:hidden;
+  box-shadow:0 30px 70px rgba(0,0,0,0.15);
   background:white;
+  transition:0.3s;
+}
+
+.preview:hover{
+  transform:scale(1.01);
+}
+
+canvas{
+  width:100%;
+  display:block;
+}
+
+.download-btn{
+  display:block;
+  margin-top:20px;
+  padding:14px;
+  border-radius:30px;
+  background:#333;
+  color:white;
   text-decoration:none;
-  font-size:13px;
-  color:#444;
-  display:none;
+  font-size:14px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  <h1>cheerzdays</h1>
-  <p>初めまして、また会おうね</p>
-</div>
+<div class="app">
 
-<div class="preview-wrapper" onclick="triggerUpload()">
-  <div class="placeholder" id="placeholder">
-    📷<br><br>
-    タップして画像を選択
-  </div>
+<h1>cheerzdays</h1>
+<div class="subtitle">初めまして、また会おうね</div>
+
+<label class="upload-box">
+  <p>📷 タップして画像を選択</p>
+  <input type="file" id="upload">
+</label>
+
+<input type="text" id="eventName" placeholder="イベント名を入力">
+
+<button onclick="generate()">画像を生成する</button>
+
+<div class="preview">
   <canvas id="canvas"></canvas>
 </div>
 
-<div class="controls">
-  <input type="file" id="upload" accept="image/*">
-  <input type="text" id="eventName" placeholder="イベント名">
-  <a id="download" class="download-btn" download="cheerzdays.png">ダウンロード</a>
+<a id="download" class="download-btn" download="event.png">ダウンロード</a>
+
 </div>
 
 <script>
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-canvas.width = 1080;
-canvas.height = 1080;
 
-function triggerUpload(){
+document.querySelector(".upload-box").addEventListener("click",()=>{
   document.getElementById("upload").click();
-}
+});
 
-document.getElementById("upload").addEventListener("change",function(e){
+function generate(){
+  const file=document.getElementById("upload").files[0];
+  if(!file){
+    alert("画像を選択してください");
+    return;
+  }
 
-  const file = e.target.files[0];
-  if(!file) return;
-
-  const reader = new FileReader();
-
-  reader.onload=function(event){
-
+  const reader=new FileReader();
+  reader.onload=function(e){
     const img=new Image();
     img.onload=function(){
 
-      /* 背景 */
-      const gradient=ctx.createLinearGradient(0,0,1080,1080);
-      gradient.addColorStop(0,"#ffe8d6");
-      gradient.addColorStop(1,"#ffb88c");
-      ctx.fillStyle=gradient;
-      ctx.fillRect(0,0,1080,1080);
+      canvas.width=1080;
+      canvas.height=1080;
 
-      /* 比率保持（絶対に伸びない） */
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      // 🔥 比率完全維持（引き伸ばしなし）
       const scale=Math.min(
         canvas.width/img.width,
         canvas.height/img.height
       );
 
-      const drawWidth=img.width*scale;
-      const drawHeight=img.height*scale;
-      const offsetX=(canvas.width-drawWidth)/2;
-      const offsetY=(canvas.height-drawHeight)/2;
+      const newWidth=img.width*scale;
+      const newHeight=img.height*scale;
+      const offsetX=(canvas.width-newWidth)/2;
+      const offsetY=(canvas.height-newHeight)/2;
 
-      ctx.drawImage(img,offsetX,offsetY,drawWidth,drawHeight);
+      ctx.drawImage(img,offsetX,offsetY,newWidth,newHeight);
 
-      /* フレーム */
-      const frame=new Image();
-      frame.src="frame.png";
+      ctx.font="bold 70px Inter";
+      ctx.fillStyle="#ffffff";
+      ctx.textAlign="center";
+      ctx.shadowColor="rgba(0,0,0,0.5)";
+      ctx.shadowBlur=20;
 
-      frame.onload=function(){
-        ctx.drawImage(frame,0,0,1080,1080);
+      ctx.fillText(
+        document.getElementById("eventName").value,
+        540,
+        1000
+      );
 
-        ctx.font="bold 70px Playfair Display";
-        ctx.fillStyle="#ffffff";
-        ctx.textAlign="center";
-        ctx.shadowColor="rgba(0,0,0,0.4)";
-        ctx.shadowBlur=20;
-
-        ctx.fillText(
-          document.getElementById("eventName").value,
-          540,
-          1000
-        );
-
-        document.getElementById("download").href=canvas.toDataURL();
-        document.getElementById("download").style.display="inline-block";
-      }
+      document.getElementById("download").href=canvas.toDataURL();
     }
-    img.src=event.target.result;
+    img.src=e.target.result;
   }
   reader.readAsDataURL(file);
-
-  /* UI切り替え */
-  document.getElementById("placeholder").style.display="none";
-  canvas.style.display="block";
-});
+}
 </script>
 
 </body>
