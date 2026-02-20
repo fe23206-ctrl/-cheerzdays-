@@ -9,184 +9,186 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
 <style>
-
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(180deg, #ffe8d6, #ffb88c);
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#ffe8d6,#ffb88c);
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
 }
 
 /* タイトル */
-.title {
-  position: absolute;
-  top: 40px;
-  text-align: center;
-  font-family: 'Playfair Display', serif;
-  color: white;
-  letter-spacing: 3px;
+.header{
+  position:absolute;
+  top:40px;
+  text-align:center;
+  color:white;
+  font-family:'Playfair Display',serif;
+  letter-spacing:3px;
 }
 
-.title h1 {
-  margin: 0;
-  font-size: 22px;
+.header h1{
+  margin:0;
+  font-size:24px;
 }
 
-.title p {
-  margin: 5px 0 0;
-  font-size: 13px;
-  opacity: 0.9;
+.header p{
+  margin:5px 0 0;
+  font-size:13px;
+  opacity:0.85;
 }
 
-/* プレビュー */
-canvas {
-  width: 90vw;
-  max-width: 500px;
-  aspect-ratio: 1/1;
-  border-radius: 30px;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-  background: white;
+/* プレビューカード */
+.preview-wrapper{
+  width:90vw;
+  max-width:520px;
+  aspect-ratio:1/1;
+  border-radius:30px;
+  background:rgba(255,255,255,0.25);
+  backdrop-filter:blur(20px);
+  box-shadow:0 30px 70px rgba(0,0,0,0.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-/* コントロールエリア */
-.controls {
-  position: absolute;
-  bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
+.preview-wrapper:hover{
+  transform:scale(1.02);
 }
 
-/* ファイル入力非表示 */
-input[type="file"] {
-  display: none;
+/* プレースホルダー */
+.placeholder{
+  position:absolute;
+  color:white;
+  text-align:center;
+  font-size:15px;
+  opacity:0.9;
 }
 
-/* 丸ボタン */
-.upload-btn {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: none;
-  background: linear-gradient(145deg, #ffb347, #ffcc70);
-  box-shadow: 0 10px 25px rgba(255,179,71,0.4);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
+canvas{
+  width:100%;
+  height:100%;
+  display:none;
 }
 
-.upload-btn:hover {
-  transform: translateY(-4px);
+/* 下部UI */
+.controls{
+  position:absolute;
+  bottom:40px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:15px;
 }
 
-/* イベント名入力 */
-input[type="text"] {
-  padding: 12px 18px;
-  border-radius: 30px;
-  border: none;
-  width: 220px;
-  text-align: center;
-  font-size: 14px;
-  outline: none;
+input[type="file"]{
+  display:none;
 }
 
-/* ダウンロード */
-.download-btn {
-  padding: 10px 20px;
-  border-radius: 25px;
-  background: white;
-  text-decoration: none;
-  font-size: 13px;
-  color: #444;
+input[type="text"]{
+  padding:12px 18px;
+  border-radius:30px;
+  border:none;
+  width:220px;
+  text-align:center;
+  font-size:14px;
+  outline:none;
 }
 
+.download-btn{
+  padding:10px 20px;
+  border-radius:25px;
+  background:white;
+  text-decoration:none;
+  font-size:13px;
+  color:#444;
+  display:none;
+}
 </style>
 </head>
 
 <body>
 
-<div class="title">
+<div class="header">
   <h1>cheerzdays</h1>
   <p>初めまして、また会おうね</p>
 </div>
 
-<canvas id="canvas"></canvas>
+<div class="preview-wrapper" onclick="triggerUpload()">
+  <div class="placeholder" id="placeholder">
+    📷<br><br>
+    タップして画像を選択
+  </div>
+  <canvas id="canvas"></canvas>
+</div>
 
 <div class="controls">
   <input type="file" id="upload" accept="image/*">
   <input type="text" id="eventName" placeholder="イベント名">
-  <button class="upload-btn" onclick="triggerUpload()">UPLOAD</button>
   <a id="download" class="download-btn" download="cheerzdays.png">ダウンロード</a>
 </div>
 
 <script>
-
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = 1080;
 canvas.height = 1080;
 
-/* 初期背景 */
-const bgGradient = ctx.createLinearGradient(0,0,1080,1080);
-bgGradient.addColorStop(0, "#ffe8d6");
-bgGradient.addColorStop(1, "#ffb88c");
-ctx.fillStyle = bgGradient;
-ctx.fillRect(0,0,1080,1080);
-
 function triggerUpload(){
   document.getElementById("upload").click();
 }
 
-document.getElementById("upload").addEventListener("change", function(e){
+document.getElementById("upload").addEventListener("change",function(e){
 
   const file = e.target.files[0];
   if(!file) return;
 
   const reader = new FileReader();
 
-  reader.onload = function(event){
+  reader.onload=function(event){
 
-    const img = new Image();
-    img.onload = function(){
+    const img=new Image();
+    img.onload=function(){
 
-      /* 背景再描画 */
-      ctx.fillStyle = bgGradient;
+      /* 背景 */
+      const gradient=ctx.createLinearGradient(0,0,1080,1080);
+      gradient.addColorStop(0,"#ffe8d6");
+      gradient.addColorStop(1,"#ffb88c");
+      ctx.fillStyle=gradient;
       ctx.fillRect(0,0,1080,1080);
 
-      /* 比率保持（絶対に引き延ばさない） */
-      const scale = Math.min(
-        canvas.width / img.width,
-        canvas.height / img.height
+      /* 比率保持（絶対に伸びない） */
+      const scale=Math.min(
+        canvas.width/img.width,
+        canvas.height/img.height
       );
 
-      const drawWidth = img.width * scale;
-      const drawHeight = img.height * scale;
+      const drawWidth=img.width*scale;
+      const drawHeight=img.height*scale;
+      const offsetX=(canvas.width-drawWidth)/2;
+      const offsetY=(canvas.height-drawHeight)/2;
 
-      const offsetX = (canvas.width - drawWidth) / 2;
-      const offsetY = (canvas.height - drawHeight) / 2;
-
-      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+      ctx.drawImage(img,offsetX,offsetY,drawWidth,drawHeight);
 
       /* フレーム */
-      const frame = new Image();
-      frame.src = "frame.png";
+      const frame=new Image();
+      frame.src="frame.png";
 
-      frame.onload = function(){
-        ctx.drawImage(frame, 0, 0, 1080, 1080);
+      frame.onload=function(){
+        ctx.drawImage(frame,0,0,1080,1080);
 
-        /* イベント名 */
-        ctx.font = "bold 70px Playfair Display";
-        ctx.fillStyle = "#ffffff";
-        ctx.textAlign = "center";
-        ctx.shadowColor = "rgba(0,0,0,0.4)";
-        ctx.shadowBlur = 20;
+        ctx.font="bold 70px Playfair Display";
+        ctx.fillStyle="#ffffff";
+        ctx.textAlign="center";
+        ctx.shadowColor="rgba(0,0,0,0.4)";
+        ctx.shadowBlur=20;
 
         ctx.fillText(
           document.getElementById("eventName").value,
@@ -194,15 +196,18 @@ document.getElementById("upload").addEventListener("change", function(e){
           1000
         );
 
-        document.getElementById("download").href = canvas.toDataURL();
+        document.getElementById("download").href=canvas.toDataURL();
+        document.getElementById("download").style.display="inline-block";
       }
     }
-    img.src = event.target.result;
+    img.src=event.target.result;
   }
-
   reader.readAsDataURL(file);
-});
 
+  /* UI切り替え */
+  document.getElementById("placeholder").style.display="none";
+  canvas.style.display="block";
+});
 </script>
 
 </body>
