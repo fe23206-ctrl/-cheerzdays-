@@ -125,7 +125,27 @@ function generate() {
       canvas.height = 1080;
 
       ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.drawImage(img, 0, 0, 1080, 1080);
+      // ===== 比率維持で中央トリミング =====
+const canvasRatio = canvas.width / canvas.height;
+const imgRatio = img.width / img.height;
+
+let drawWidth, drawHeight, offsetX, offsetY;
+
+if (imgRatio > canvasRatio) {
+  // 横長画像
+  drawHeight = canvas.height;
+  drawWidth = img.width * (canvas.height / img.height);
+  offsetX = (canvas.width - drawWidth) / 2;
+  offsetY = 0;
+} else {
+  // 縦長画像
+  drawWidth = canvas.width;
+  drawHeight = img.height * (canvas.width / img.width);
+  offsetX = 0;
+  offsetY = (canvas.height - drawHeight) / 2;
+}
+
+ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
 
       const frame = new Image();
       frame.src = "frame.png";
