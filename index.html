@@ -123,27 +123,25 @@ function generate() {
 
       canvas.width = 1080;
       canvas.height = 1080;
+      
+// 背景
+const gradient = ctx.createLinearGradient(0,0,1080,1080);
+gradient.addColorStop(0, "#ffe8d6");
+gradient.addColorStop(1, "#ffd1a1");
+ctx.fillStyle = gradient;
+ctx.fillRect(0,0,1080,1080);
 
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      // ===== 比率維持で中央トリミング =====
-const canvasRatio = canvas.width / canvas.height;
-const imgRatio = img.width / img.height;
+// 比率保持（絶対に引き延ばさない）
+const scale = Math.min(
+  canvas.width / img.width,
+  canvas.height / img.height
+);
 
-let drawWidth, drawHeight, offsetX, offsetY;
+const drawWidth = img.width * scale;
+const drawHeight = img.height * scale;
 
-if (imgRatio > canvasRatio) {
-  // 横長画像
-  drawHeight = canvas.height;
-  drawWidth = img.width * (canvas.height / img.height);
-  offsetX = (canvas.width - drawWidth) / 2;
-  offsetY = 0;
-} else {
-  // 縦長画像
-  drawWidth = canvas.width;
-  drawHeight = img.height * (canvas.width / img.width);
-  offsetX = 0;
-  offsetY = (canvas.height - drawHeight) / 2;
-}
+const offsetX = (canvas.width - drawWidth) / 2;
+const offsetY = (canvas.height - drawHeight) / 2;
 
 ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
 
