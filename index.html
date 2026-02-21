@@ -47,27 +47,25 @@ body{
 }
 
 .upload-box{
-  position:relative;
   border:3px dashed #ff7a00;
   border-radius:30px;
   padding:50px 20px;
   background:#fff3e6;
   cursor:pointer;
+  margin-bottom:20px;
+  transition:0.2s;
+}
+
+.upload-box:hover{
+  background:#ffe6cc;
 }
 
 .upload-box input{
-  position:absolute;
-  width:100%;
-  height:100%;
-  opacity:0;
-  top:0;
-  left:0;
-  cursor:pointer;
+  display:none;
 }
 
 button{
   width:100%;
-  margin-top:25px;
   padding:14px;
   border:none;
   border-radius:40px;
@@ -75,6 +73,11 @@ button{
   color:white;
   font-weight:700;
   cursor:pointer;
+  transition:0.2s;
+}
+
+button:hover{
+  background:#e85f00;
 }
 
 canvas{
@@ -94,11 +97,12 @@ canvas{
 
   <input type="text" id="nameInput" class="name-input" placeholder="名前を入力">
 
-  <label class="upload-box">
+  <label for="upload" class="upload-box">
     📷 タップして画像を選択<br>
     PNG / JPG 対応
-    <input type="file" id="upload" accept="image/*">
   </label>
+
+  <input type="file" id="upload" accept="image/*">
 
   <button onclick="generate()">画像を生成する</button>
 
@@ -121,6 +125,7 @@ function generate(){
 
   reader.onload = function(e){
     const img = new Image();
+
     img.onload = function(){
 
       canvas.width = 1080;
@@ -154,12 +159,11 @@ function generate(){
       ctx.shadowColor="rgba(0,0,0,0.4)";
       ctx.shadowBlur=20;
 
-      ctx.fillText(
-        document.getElementById("nameInput").value,
-        540,
-        1000
-      );
+      const name = document.getElementById("nameInput").value || "";
+
+      ctx.fillText(name, 540, 1000);
     }
+
     img.src = e.target.result;
   }
 
