@@ -28,7 +28,6 @@ body{
   box-shadow:0 20px 50px rgba(0,0,0,0.15);
 }
 
-/* タイトル */
 .title{
   font-family:'Baloo 2',cursive;
   font-size:36px;
@@ -43,7 +42,6 @@ body{
   margin-bottom:25px;
 }
 
-/* ===== 点線アップロード（中央配置） ===== */
 .upload-area{
   border:3px dashed #ff8c42;
   border-radius:25px;
@@ -88,7 +86,6 @@ input[type="text"]{
   font-size:14px;
 }
 
-/* ボタン */
 button{
   width:100%;
   padding:14px;
@@ -99,7 +96,7 @@ button{
   background:#ff6a00;
   color:white;
   cursor:pointer;
-  transition:0.3s;
+  transition:0.2s;
   box-shadow:0 8px 0 #cc5500;
   margin-top:20px;
 }
@@ -135,14 +132,12 @@ canvas{
 <div class="title">cheerzdays</div>
 <div class="subtitle">初めまして、また会おうね</div>
 
-<!-- 🔽 イベント名入力 -->
 <input type="text" id="eventName" placeholder="イベント名を入力">
 
-<!-- 🔽 点線アップロード（間に配置） -->
 <label class="upload-area">
   <div class="upload-text">📸 タップして画像を選択</div>
   <div class="upload-sub">PNG / JPG 対応</div>
-  <input type="file" id="upload">
+  <input type="file" id="upload" accept="image/*">
 </label>
 
 <button onclick="generate()">画像を生成する</button>
@@ -168,6 +163,7 @@ function generate(){
 
   reader.onload = function(e){
     const img = new Image();
+
     img.onload = function(){
 
       canvas.width = 1080;
@@ -179,10 +175,11 @@ function generate(){
 
       let drawWidth, drawHeight, offsetX, offsetY;
 
+      // ✅ 比率保持・中央配置（安全版）
       if(imgRatio > canvasRatio){
         drawHeight = canvas.height;
         drawWidth = img.width * (canvas.height / img.height);
-        offsetX = (canvas.width - drawWidth) 👉 2;
+        offsetX = (canvas.width - drawWidth) / 2;
         offsetY = 0;
       }else{
         drawWidth = canvas.width;
@@ -194,12 +191,12 @@ function generate(){
       ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
 
       const frame = new Image();
-      frame.src = "frame.png";
+      frame.src = "frame.png"; // 同じフォルダに配置
 
       frame.onload = function(){
         ctx.drawImage(frame,0,0,1080,1080);
 
-        ctx.font="bold 70px Baloo 2";
+        ctx.font="bold 70px 'Baloo 2'";
         ctx.fillStyle="#ffffff";
         ctx.textAlign="center";
         ctx.shadowColor="rgba(0,0,0,0.4)";
@@ -211,11 +208,18 @@ function generate(){
           1000
         );
 
-        document.getElementById("download").href=canvas.toDataURL();
+        document.getElementById("download").href=canvas.toDataURL("image/png");
       }
+
+      frame.onerror = function(){
+        console.log("frame.png が見つかりません");
+      }
+
     }
+
     img.src=e.target.result;
   }
+
   reader.readAsDataURL(file);
 }
 </script>
