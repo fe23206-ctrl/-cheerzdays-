@@ -2,13 +2,16 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>cheerzdays</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cheerzdays-初めまして、また会おうね-</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
-  font-family: "Helvetica Neue", sans-serif;
-  background:linear-gradient(135deg,#fff1e6,#ffe3cc);
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffb347,#ff8c42);
   display:flex;
   justify-content:center;
   align-items:center;
@@ -16,93 +19,124 @@ body{
 }
 
 .container{
-  width:380px;
-  text-align:center;
-}
-
-/* タイトル */
-.title{
-  font-size:28px;
-  font-weight:900;
-  color:#ff7a00;
-  margin-bottom:25px;
-  letter-spacing:1px;
-}
-
-/* アップロード枠 */
-.upload-box{
   position:relative;
-  border:3px dashed #ff9a3c;
-  border-radius:22px;
-  padding:45px 20px;
-  background:#ffffff;
-  margin-bottom:30px;
+  background:#fff;
+  padding:35px 25px;
+  border-radius:30px;
+  width:90%;
+  max-width:500px;
+  text-align:center;
+  box-shadow:0 20px 50px rgba(0,0,0,0.15);
+}
+
+/* タイトル（ステッカー風） */
+.title{
+  font-family:'Baloo 2',cursive;
+  font-size:36px;
+  color:#ff6a00;
+  text-shadow:3px 3px 0 #ffe0c2;
+  margin-bottom:5px;
+}
+
+.subtitle{
+  font-size:15px;
+  color:#444;
+  margin-bottom:25px;
+}
+
+/* ポップ点線 */
+.dashed-vertical{
+  position:absolute;
+  helping: none;
+  top:120px;
+  left:-18px;
+  width:60px;
+  height:120px;
+  border:3px dashed #ff8c42;
+  border-radius:30px;
+  transform:rotate(-8deg);
+}
+
+.dashed-top{
+  position:absolute;
+  top:50px;
+  right:-20px;
+  width:80px;
+  height:50px;
+  border:3px dashed #ffb347;
+  border-radius:20px;
+  transform:rotate(12deg);
+}
+
+/* アップロード */
+.upload-box{
+  border:3px dashed #ff8c42;
+  border-radius:20px;
+  padding:25px;
+  cursor:pointer;
+  background:#fff7ef;
+  margin-bottom:20px;
   transition:0.3s;
 }
 
 .upload-box:hover{
-  background:#fff6ee;
-  transform:scale(1.02);
-}
-
-.upload-box input{
-  position:absolute;
-  width:100%;
-  height:100%;
-  opacity:0;
-  top:0;
-  left:0;
-  cursor:pointer;
+  background:#ffe8d6;
+  transform:scale(1.03);
 }
 
 .upload-text{
+  font-weight:600;
+  color:#ff6a00;
+}
+
+input[type="file"]{
+  display:none;
+}
+
+input[type="text"]{
+  width:100%;
+  padding:14px;
+  margin-bottom:15px;
+  border-radius:20px;
+  border:2px solid #ffd1a1;
+  font-size:14px;
+}
+
+button{
+  width:100%;
+  padding:14px;
   font-size:16px;
   font-weight:700;
-  color:#ff7a00;
-}
-
-.sub-text{
-  font-size:13px;
-  margin-top:8px;
-  color:#cc7a2e;
-}
-
-/* ===== カードデザイン ===== */
-
-.card{
-  display:none;
-  border-radius:28px;
-  overflow:hidden;
-  background:#ffffff;
-  box-shadow:
-    0 25px 50px rgba(255,122,0,0.25),
-    0 10px 25px rgba(0,0,0,0.08);
-  animation:fadeIn 0.4s ease;
-}
-
-/* 画像（比率崩れない） */
-.card img{
-  width:100%;
-  height:auto;
-  display:block;
-  object-fit:contain;
-}
-
-/* 下のアクセント帯 */
-.card-footer{
-  padding:18px;
-  background:linear-gradient(90deg,#ff7a00,#ffb347);
+  border:none;
+  border-radius:40px;
+  background:#ff6a00;
   color:white;
-  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 8px 0 #cc5500;
+}
+
+button:active{
+  transform:translateY(4px);
+  box-shadow:0 4px 0 #cc5500;
+}
+
+canvas{
+  width:100%;
+  margin-top:25px;
+  border-radius:20px;
+}
+
+.download-btn{
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 25px;
+  border-radius:30px;
+  background:#333;
+  color:white;
+  text-decoration:none;
   font-size:14px;
-  letter-spacing:1px;
 }
-
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(10px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
 </style>
 </head>
 
@@ -110,34 +144,90 @@ body{
 
 <div class="container">
 
-  <div class="title">cheerzdays - 初めまして、また会おうね -</div>
+<div class="dashed-vertical"></div>
+<div class="dashed-top"></div>
 
-  <div class="upload-box">
-    <input type="file" accept="image/*" onchange="previewImage(event)">
-    <div class="upload-text">タップして画像を選択</div>
-    <div class="sub-text">PNG / JPG 対応</div>
-  </div>
+<div class="title">cheerzdays</div>
+<div class="subtitle">初めまして、また会おうね</div>
 
-  <!-- カード -->
-  <div class="card" id="card">
-    <img id="previewImage">
-    <div class="card-footer">
-      cheerz ✶ memories
-    </div>
-  </div>
+<label class="upload-box">
+  <div class="upload-text">📸 タップして画像を選択</div>
+  <input type="file" id="upload">
+</label>
+
+<input type="text" id="eventName" placeholder="イベント名を入力">
+
+<button onclick="generate()">画像を生成する</button>
+
+<canvas id="canvas"></canvas>
+
+<a id="download" class="download-btn" download="event.png">ダウンロード</a>
 
 </div>
 
 <script>
-function previewImage(event){
-  const file = event.target.files[0];
-  if(!file) return;
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function generate(){
+  const file = document.getElementById("upload").files[0];
+  if(!file){
+    alert("画像を選択してください");
+    return;
+  }
 
   const reader = new FileReader();
+
   reader.onload = function(e){
-    const img = document.getElementById("previewImage");
-    img.src = e.target.result;
-    document.getElementById("card").style.display = "block";
+    const img = new Image();
+    img.onload = function(){
+
+      canvas.width = 1080;
+      canvas.height = 1080;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      // 比率維持（引き伸ばしなし）
+      const canvasRatio = canvas.width / canvas.height;
+      const imgRatio = img.width / img.height;
+
+      let drawWidth, drawHeight, offsetX, offsetY;
+
+      if(imgRatio > canvasRatio){
+        drawHeight = canvas.height;
+        drawWidth = img.width * (canvas.height / img.height);
+        offsetX = (canvas.width - drawWidth) / 2;
+        offsetY = 0;
+      }else{
+        drawWidth = canvas.width;
+        drawHeight = img.height * (canvas.width / img.width);
+        offsetX = 0;
+        offsetY = (canvas.height - drawHeight) / 2;
+      }
+
+      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+
+      const frame = new Image();
+      frame.src = "frame.png";
+
+      frame.onload = function(){
+        ctx.drawImage(frame,0,0,1080,1080);
+
+        ctx.font="bold 70px Baloo 2";
+        ctx.fillStyle="#ffffff";
+        ctx.textAlign="center";
+        ctx.shadowColor="rgba(0,0,0,0.4)";
+        ctx.shadowBlur=20;
+
+        ctx.fillText(
+          document.getElementById("eventName").value,
+          540,
+          1000
+        );
+
+        document.getElementById("download").href=canvas.toDataURL();
+      }
+    }
+    img.src=e.target.result;
   }
   reader.readAsDataURL(file);
 }
